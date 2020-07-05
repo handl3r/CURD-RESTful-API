@@ -3,7 +3,7 @@ package auth
 import (
 	"encoding/json"
 	"fmt"
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"os"
@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 )
+
 func CreateToken(user_id uint32) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
@@ -72,8 +73,7 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 	return 0, nil
 }
 
-
-func Pretty(data interface{})  {
+func Pretty(data interface{}) {
 	b, err := json.MarshalIndent(data, "", " ")
 	if err != nil {
 		log.Println(err)
@@ -81,4 +81,3 @@ func Pretty(data interface{})  {
 	}
 	fmt.Println(string(b))
 }
-

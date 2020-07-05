@@ -8,4 +8,3 @@ import (
 func (server *Server) Home(writer http.ResponseWriter, request *http.Request) {
 	responses.JSON(writer, http.StatusOK, "Welcome to my API")
 }
-

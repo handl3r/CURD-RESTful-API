@@ -27,8 +27,8 @@ func TestMain(m *testing.M) {
 
 func Database() {
 	var err error
-	DBURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("TestDbUser"),
-		os.Getenv("TestDbPassword"), os.Getenv("TestDbHost"), os.Getenv("TestDbPort"), os.Getenv("TestDbName"))
+	DBURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("TEST_DB_USER"),
+		os.Getenv("TEST_DB_PASSWORD"), os.Getenv("TEST_DB_HOST"), os.Getenv("TEST_DB_PORT"), os.Getenv("TEST_DB_NAME"))
 	server.DB, err = gorm.Open("mysql", DBURL)
 	if err != nil {
 		fmt.Println("Can not connect to database!")
@@ -70,18 +70,18 @@ func seedOneUser() (models.User, error) {
 
 func seedUsers() error {
 	users := []models.User{
-		models.User{
+		{
 			Nickname: "nickname1",
 			Email:    "email1@gmail.com",
 			Password: "thaibuixuan",
 		},
-		models.User{
+		{
 			Nickname: "nickname2",
 			Email:    "email2@gmail.com",
 			Password: "thaibuixuan",
 		},
 	}
-	for i, _ := range users {
+	for i := range users {
 		err := server.DB.Model(&models.User{}).Create(&users[i]).Error
 		if err != nil {
 			return err
@@ -130,29 +130,29 @@ func seedOneUserAndPost() (models.Post, error) {
 func seedUserAndPosts() ([]models.User, []models.Post, error) {
 	var err error
 	users := []models.User{
-		models.User{
+		{
 			Nickname: "nickname1",
 			Email:    "email1@gmail.com",
 			Password: "thaibuixuan",
 		},
-		models.User{
+		{
 			Nickname: "nickname2",
 			Email:    "email2@gmail.com",
 			Password: "thaibuixuan",
 		},
 	}
 	posts := []models.Post{
-		models.Post{
+		{
 			Title:   "title1",
 			Content: "content1",
 		},
-		models.Post{
+		{
 			Title:   "title2",
 			Content: "content2",
 		},
 	}
 
-	for i, _ := range users {
+	for i := range users {
 		err = server.DB.Model(&models.User{}).Create(&users[i]).Error
 		if err != nil {
 			log.Fatal("Can not create user")

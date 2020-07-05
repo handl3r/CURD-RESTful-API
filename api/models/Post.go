@@ -64,7 +64,7 @@ func (p *Post) FindAllPosts(db *gorm.DB) (*[]Post, error) {
 		return &[]Post{}, err
 	}
 	if len(posts) != 0 {
-		for i, _ := range posts {
+		for i := range posts {
 			err = db.Debug().Model(&User{}).Where("id=?", posts[i].AuthorID).Take(&posts[i].Author).Error
 			if err != nil {
 				return &[]Post{}, err
